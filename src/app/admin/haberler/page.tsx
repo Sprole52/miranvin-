@@ -38,6 +38,11 @@ const AdminNews = () => {
     isActive: true
   });
 
+  // Image upload states
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [isUploading, setIsUploading] = useState(false);
+
   useEffect(() => {
     fetchHaberler();
   }, []);
@@ -63,8 +68,20 @@ const AdminNews = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setIsUploading(true);
+      
+      let finalImageUrl = haberForm.imageUrl;
+      
+      // If there's a new image file, handle the upload
+      if (imageFile) {
+        // For now, we'll use the base64 data URL as the image
+        // In a real application, you'd upload to a cloud service like Firebase Storage
+        finalImageUrl = imagePreview;
+      }
+      
       const haberData = {
         ...haberForm,
+        imageUrl: finalImageUrl,
         tags: haberForm.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
         updatedAt: new Date().toISOString()
       };
@@ -99,9 +116,13 @@ const AdminNews = () => {
       setShowAddModal(false);
       setEditingHaber(null);
       setHaberForm({ title: '', subtitle: '', description: '', content: '', imageUrl: '', tags: '', featured: false, isActive: true });
+      setImagePreview('');
+      setImageFile(null);
       fetchHaberler();
     } catch (error) {
       console.error('Haber kaydedilirken hata:', error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -117,8 +138,14 @@ const AdminNews = () => {
       featured: haber.featured,
       isActive: haber.isActive
     });
+    setImagePreview(haber.imageUrl);
+    setImageFile(null);
     setShowAddModal(true);
   };
+
+
+
+
 
   const handleDelete = async (haberId: string) => {
     if (confirm('Bu haberi silmek istediğinizden emin misiniz?')) {
@@ -312,9 +339,9 @@ const AdminNews = () => {
 
       {/* Add/Edit News Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-6xl w-full h-[95vh] flex flex-col shadow-2xl">
+            <div className="p-6 border-b border-gray-200 flex-shrink-0 flex justify-between items-center bg-gray-50">
               <h3 className="text-lg font-semibold text-gray-900">
                 {editingHaber ? 'Haber Düzenle' : 'Yeni Haber Ekle'}
               </h3>
@@ -323,6 +350,8 @@ const AdminNews = () => {
                   setShowAddModal(false);
                   setEditingHaber(null);
                   setHaberForm({ title: '', subtitle: '', description: '', content: '', imageUrl: '', tags: '', featured: false, isActive: true });
+                  setImagePreview('');
+                  setImageFile(null);
                 }}
                 className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-full transition-colors"
               >
@@ -332,7 +361,9 @@ const AdminNews = () => {
               </button>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {/* Temel Bilgiler - Üstte */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Başlık *</label>
@@ -358,6 +389,7 @@ const AdminNews = () => {
                 </div>
               </div>
               
+              {/* Açıklama */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Açıklama *</label>
                 <textarea
@@ -370,18 +402,9 @@ const AdminNews = () => {
                 ></textarea>
               </div>
               
+              {/* Resim URL'si */}
               <div>
-                <CKEditorComponent
-                  value={haberForm.content}
-                  onChange={(data) => setHaberForm({...haberForm, content: data})}
-                  placeholder="Haber içeriği..."
-                  height="400px"
-                  label="İçerik *"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Resim URL</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Resim URL&apos;si</label>
                 <input
                   type="url"
                   value={haberForm.imageUrl}
@@ -391,6 +414,7 @@ const AdminNews = () => {
                 />
               </div>
               
+              {/* Etiketler */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Etiketler (virgülle ayırın)</label>
                 <input
@@ -402,8 +426,9 @@ const AdminNews = () => {
                 />
               </div>
               
+              {/* Öne Çıkan ve Aktif */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center mt-6">
+                <div className="flex items-center">
                   <input
                     type="checkbox"
                     id="featured"
@@ -414,7 +439,7 @@ const AdminNews = () => {
                   <label htmlFor="featured" className="ml-2 text-sm text-gray-700">Öne Çıkan</label>
                 </div>
                 
-                <div className="flex items-center mt-6">
+                <div className="flex items-center">
                   <input
                     type="checkbox"
                     id="isActive"
@@ -426,24 +451,52 @@ const AdminNews = () => {
                 </div>
               </div>
               
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddModal(false);
-                    setEditingHaber(null);
-                    setHaberForm({ title: '', subtitle: '', description: '', content: '', imageUrl: '', tags: '', featured: false, isActive: true });
-                  }}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  İptal
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
-                >
-                  {editingHaber ? 'Güncelle' : 'Ekle'}
-                </button>
+              {/* İçerik - En Altta */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">İçerik *</label>
+                <div className="border border-gray-300 rounded-lg">
+                  <CKEditorComponent
+                    value={haberForm.content}
+                    onChange={(data) => setHaberForm({...haberForm, content: data})}
+                    placeholder="Haber içeriği..."
+                    height="250px"
+                    label=""
+                  />
+                </div>
+              </div>
+              </div>
+              
+              {/* Fixed Bottom Buttons */}
+              <div className="flex-shrink-0 border-t border-gray-200 p-6">
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAddModal(false);
+                      setEditingHaber(null);
+                      setHaberForm({ title: '', subtitle: '', description: '', content: '', imageUrl: '', tags: '', featured: false, isActive: true });
+                      setImagePreview('');
+                      setImageFile(null);
+                    }}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    İptal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isUploading}
+                    className="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 disabled:bg-amber-400 text-white rounded-lg transition-colors disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isUploading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        {editingHaber ? 'Güncelleniyor...' : 'Ekleniyor...'}
+                      </>
+                    ) : (
+                      editingHaber ? 'Güncelle' : 'Ekle'
+                    )}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

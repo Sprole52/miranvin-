@@ -1,7 +1,82 @@
-import React from 'react';
+'use client'
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const References = () => {
+  const [counts, setCounts] = useState({
+    projects: 0,
+    customers: 0,
+    experience: 0,
+    service: 0
+  });
+
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  const targetCounts = {
+    projects: 300,
+    customers: 500,
+    experience: 15,
+    service: 24
+  };
+
+  const animateCount = (start: number, end: number, duration: number, callback: (value: number) => void) => {
+    const startTime = performance.now();
+    
+    const updateCount = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(start + (end - start) * easeOutQuart);
+      
+      callback(currentValue);
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      }
+    };
+    
+    requestAnimationFrame(updateCount);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            
+            // Animate each counter
+            animateCount(0, targetCounts.projects, 2000, (value) => 
+              setCounts(prev => ({ ...prev, projects: value }))
+            );
+            
+            animateCount(0, targetCounts.customers, 2000, (value) => 
+              setCounts(prev => ({ ...prev, customers: value }))
+            );
+            
+            animateCount(0, targetCounts.experience, 2000, (value) => 
+              setCounts(prev => ({ ...prev, experience: value }))
+            );
+            
+            animateCount(0, targetCounts.service, 2000, (value) => 
+              setCounts(prev => ({ ...prev, service: value }))
+            );
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasAnimated, targetCounts.projects, targetCounts.customers, targetCounts.experience, targetCounts.service]);
+
   const references = [
     {
       name: "Ahmet Yılmaz",
@@ -82,22 +157,30 @@ const References = () => {
         </div>
 
         {/* Stats */}
-        <div className="bg-gray-50 p-4 sm:p-6 rounded-xl">
+        <div ref={statsRef} className="bg-gray-50 p-4 sm:p-6 rounded-xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">300+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">
+                {counts.projects}+
+              </div>
               <p className="text-xs sm:text-sm text-gray-600">Tamamlanan Proje</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">500+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">
+                {counts.customers}+
+              </div>
               <p className="text-xs sm:text-sm text-gray-600">Mutlu Müşteri</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">15+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">
+                {counts.experience}+
+              </div>
               <p className="text-xs sm:text-sm text-gray-600">Yıl Deneyim</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">24/7</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-500 mb-1 sm:mb-2">
+                {counts.service}/7
+              </div>
               <p className="text-xs sm:text-sm text-gray-600">Hizmet</p>
             </div>
           </div>

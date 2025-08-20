@@ -60,12 +60,12 @@ const Services = () => {
               className="text-center group relative"
             >
               {/* Premium Card Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 border border-gray-100"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 border border-gray-100 group-hover:border-yellow-200"></div>
               
               {/* Content */}
               <div className="relative z-10 p-8">
                 {/* Icon */}
-                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-3xl flex items-center justify-center group-hover:from-yellow-100 group-hover:to-yellow-200 transition-all duration-500 shadow-lg group-hover:shadow-xl">
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-3xl flex items-center justify-center group-hover:from-yellow-100 group-hover:to-yellow-200 transition-all duration-500 shadow-lg group-hover:shadow-xl border border-yellow-200">
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-500">{service.icon}</span>
                 </div>
 

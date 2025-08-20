@@ -1,11 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith('/admin') || false;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -21,7 +26,7 @@ const FloatingContact = () => {
       ),
       href: 'https://wa.me/',
       color: 'bg-green-500',
-      delay: '0ms'
+      angle: 220 // Sol üst (çeyrek daire)
     },
     {
       name: 'Telefon',
@@ -32,7 +37,7 @@ const FloatingContact = () => {
       ),
       href: 'tel:+905327899182',
       color: 'bg-blue-500',
-      delay: '100ms'
+      angle: 260 // Sol üst (çeyrek daire)
     },
     {
       name: 'Instagram',
@@ -43,7 +48,7 @@ const FloatingContact = () => {
       ),
       href: 'https://instagram.com/tesisatpro',
       color: 'bg-pink-500',
-      delay: '200ms'
+      angle: 180 // Sol (çeyrek daire)
     }
   ];
 
@@ -52,37 +57,51 @@ const FloatingContact = () => {
     return null;
   }
 
+  // Don't render until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return null;
+  }
+
+  const radius = 110; // Daire yarıçapı
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 select-none flex flex-col items-center">
-      {/* Contact Options */}
-      <div className={`flex flex-col-reverse items-center gap-3 mb-3 transition-all duration-300 ${
-        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-      }`}>
-        {contactOptions.map((option) => (
-          <a
-            key={option.name}
-            href={option.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${option.color} text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-all duration-200 transform ${
-              isOpen ? 'scale-100 translate-y-0' : 'scale-0 translate-y-2'
-            } hover:scale-105`}
-            style={{
-              transitionDelay: isOpen ? option.delay : '0ms'
-            }}
-            title={option.name}
-          >
-            {option.icon}
-          </a>
-        ))}
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Contact Options - Quarter Circle Layout */}
+      <div className="relative">
+        {contactOptions.map((option, index) => {
+          const angleRad = (option.angle * Math.PI) / 180;
+          const x = Math.cos(angleRad) * radius;
+          const y = Math.sin(angleRad) * radius;
+          
+          return (
+            <a
+              key={option.name}
+              href={option.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${option.color} text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 ease-out transform absolute ${
+                isOpen 
+                  ? 'opacity-100 scale-100' 
+                  : 'opacity-0 scale-0 pointer-events-none'
+              } hover:scale-110 hover:rotate-12`}
+              style={{
+                left: `${x + 32}px`, // 32px = ana butonun yarı genişliği
+                top: `${y + 32}px`, // 32px = ana butonun yarı yüksekliği
+                transitionDelay: isOpen ? `${index * 150}ms` : '0ms',
+                zIndex: isOpen ? 20 : -1
+              }}
+              title={option.name}
+            >
+              {option.icon}
+            </a>
+          );
+        })}
       </div>
 
       {/* Main Toggle Button */}
       <button
         onClick={toggleMenu}
-        className={`bg-amber-600 hover:bg-amber-700 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95 ${
-          isOpen ? 'rotate-45' : 'rotate-0'
-        } cursor-pointer relative z-10`}
+        className={`bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer relative z-30`}
         title="İletişim"
         type="button"
       >

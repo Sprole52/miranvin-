@@ -12,7 +12,8 @@ import {
   FiLogOut,
   FiX,
   FiMenu,
-  FiUser
+  FiUser,
+  FiMapPin
 } from 'react-icons/fi';
 
 const AdminSidebar = () => {
@@ -25,6 +26,7 @@ const AdminSidebar = () => {
     { name: 'Dashboard', href: '/admin', icon: FiBarChart },
     { name: 'Galeri', href: '/admin/galeri', icon: FiImage },
     { name: 'Haberler', href: '/admin/haberler', icon: FiFileText },
+    { name: 'Hizmet Bölgeleri', href: '/admin/hizmet-bolgeleri', icon: FiMapPin },
     { name: 'Mesajlar', href: '/admin/mesajlar', icon: FiMessageSquare },
     { name: 'Ayarlar', href: '/admin/ayarlar', icon: FiSettings },
   ];

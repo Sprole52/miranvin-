@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import contactReducer from './slices/contactSlice';
 import galleryReducer from './slices/gallerySlice';
 import newsReducer from './slices/newsSlice';
+import serviceAreasReducer from './slices/serviceAreasSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     contact: contactReducer,
     gallery: galleryReducer,
     news: newsReducer,
+    serviceAreas: serviceAreasReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -64,7 +64,7 @@ const Header = () => {
             
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Moved to right side */}
           <nav className="hidden lg:flex items-center space-x-1">
             <Link href="/" className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-600 ${
               isScrolled ? 'text-gray-700' : 'text-white'
@@ -75,6 +75,11 @@ const Header = () => {
               isScrolled ? 'text-gray-700' : 'text-white'
             }`}>
               Hizmetlerimiz
+            </Link>
+            <Link href="/hizmet-bolgelerimiz" className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-600 ${
+              isScrolled ? 'text-gray-700' : 'text-white'
+            }`}>
+              Hizmet Bölgelerimiz
             </Link>
             <Link href="/galeri" className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-600 ${
               isScrolled ? 'text-gray-700' : 'text-white'
@@ -97,20 +102,6 @@ const Header = () => {
               İletişim
             </Link>
           </nav>
-
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <a href="tel:+905555555555">
-              <button className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105 overflow-hidden touch-button ${
-                isScrolled 
-                  ? 'bg-amber-600 text-white hover:bg-amber-700 shadow-lg hover:shadow-xl' 
-                  : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30'
-              }`}>
-                <span className="relative z-10">Hemen Ara</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
-            </a>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -146,6 +137,9 @@ const Header = () => {
             </Link>
             <Link href="/hizmetlerimiz" className={`block px-3 py-3 rounded-lg text-sm font-medium transition-all duration-300 touch-button text-gray-700 hover:bg-gray-100`} onClick={() => setIsMenuOpen(false)}>
               Hizmetlerimiz
+            </Link>
+            <Link href="/hizmet-bolgelerimiz" className={`block px-3 py-3 rounded-lg text-sm font-medium transition-all duration-300 touch-button text-gray-700 hover:bg-gray-100`} onClick={() => setIsMenuOpen(false)}>
+              Hizmet Bölgelerimiz
             </Link>
             <Link href="/galeri" className={`block px-3 py-3 rounded-lg text-sm font-medium transition-all duration-300 touch-button text-gray-700 hover:bg-gray-100`} onClick={() => setIsMenuOpen(false)}>
               Galeri

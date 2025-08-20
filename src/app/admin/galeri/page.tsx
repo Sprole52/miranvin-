@@ -587,230 +587,239 @@ const AdminGallery = () => {
 
       {/* Gallery Item Modal */}
       {showItemModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {editingItem ? 'Galeri Resmi Düzenle' : 'Yeni Galeri Resmi Ekle'}
-            </h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-6xl w-full h-[95vh] flex flex-col shadow-2xl">
+            <div className="p-6 border-b border-gray-200 flex-shrink-0 bg-gray-50">
+              <h2 className="text-xl font-semibold text-gray-900">
+                {editingItem ? 'Galeri Resmi Düzenle' : 'Yeni Galeri Resmi Ekle'}
+              </h2>
+            </div>
             
-            <form onSubmit={handleItemSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Sol taraf - Form alanları */}
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleItemSubmit} className="flex flex-col flex-1 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Sol taraf - Form alanları */}
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Başlık *</label>
+                        <input
+                          type="text"
+                          value={itemForm.title}
+                          onChange={(e) => setItemForm({...itemForm, title: e.target.value})}
+                          required
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                          placeholder="Örn: Modern Kanalizasyon"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Kategori *</label>
+                        <select
+                          value={itemForm.categoryId}
+                          onChange={(e) => setItemForm({...itemForm, categoryId: e.target.value})}
+                          required
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+                          <option value="">Kategori Seçin</option>
+                          {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.icon} {category.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Başlık *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Ana Resim URL *</label>
                       <input
-                        type="text"
-                        value={itemForm.title}
-                        onChange={(e) => setItemForm({...itemForm, title: e.target.value})}
+                        type="url"
+                        value={itemForm.imageUrl}
+                        onChange={(e) => setItemForm({...itemForm, imageUrl: e.target.value})}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        placeholder="Örn: Modern Kanalizasyon"
+                        placeholder="https://example.com/resim.jpg"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Kategori *</label>
-                      <select
-                        value={itemForm.categoryId}
-                        onChange={(e) => setItemForm({...itemForm, categoryId: e.target.value})}
-                        required
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Küçük Resim URL</label>
+                      <input
+                        type="url"
+                        value={itemForm.thumbnailUrl}
+                        onChange={(e) => setItemForm({...itemForm, thumbnailUrl: e.target.value})}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                      >
-                        <option value="">Kategori Seçin</option>
-                        {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
-                            {category.icon} {category.name}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder="https://example.com/resim-kucuk.jpg (opsiyonel)"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Etiketler (virgülle ayırın)</label>
+                      <input
+                        type="text"
+                        value={itemForm.tags}
+                        onChange={(e) => setItemForm({...itemForm, tags: e.target.value})}
+                        placeholder="su, tesisat, kurulum, modern"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id="isActive"
+                          checked={itemForm.isActive}
+                          onChange={(e) => setItemForm({...itemForm, isActive: e.target.checked})}
+                          className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor="isActive" className="ml-2 text-sm text-gray-700">Aktif</label>
+                      </div>
+                      
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id="isFeatured"
+                          checked={itemForm.isFeatured}
+                          onChange={(e) => setItemForm({...itemForm, isFeatured: e.target.checked})}
+                          className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor="isFeatured" className="ml-2 text-sm text-gray-700">Öne Çıkan</label>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div>
+
+                  {/* Sağ taraf - Resim önizleme */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2">Resim Önizleme</h4>
+                    
+                    {/* Ana resim önizleme */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-500 mb-2">Ana Resim</label>
+                      <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
+                        {itemForm.imageUrl ? (
+                          <Image
+                            src={itemForm.imageUrl}
+                            alt="Önizleme"
+                            width={400}
+                            height={300}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              (target.nextElementSibling as HTMLElement)!.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div 
+                          className={`w-full h-full flex items-center justify-center ${itemForm.imageUrl ? 'hidden' : 'flex'}`}
+                          style={{ display: itemForm.imageUrl ? 'none' : 'flex' } as React.CSSProperties}
+                        >
+                          <div className="text-center">
+                            <span className="text-4xl text-gray-400 mb-2 block">🖼️</span>
+                            <p className="text-sm text-gray-500">Resim URL&apos;si girin</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Küçük resim önizleme */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-500 mb-2">Küçük Resim</label>
+                      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
+                        {itemForm.thumbnailUrl ? (
+                          <Image
+                            src={itemForm.thumbnailUrl}
+                            alt="Küçük önizleme"
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              (target.nextElementSibling as HTMLElement)!.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div 
+                          className={`w-full h-full flex items-center justify-center ${itemForm.thumbnailUrl ? 'hidden' : 'flex'}`}
+                          style={{ display: itemForm.thumbnailUrl ? 'none' : 'flex' } as React.CSSProperties}
+                        >
+                          <div className="text-center">
+                            <span className="text-4xl text-gray-400 mb-1 block">🖼️</span>
+                            <p className="text-xs text-gray-500">Opsiyonel</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Hızlı URL örnekleri */}
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <h5 className="text-xs font-medium text-gray-700 mb-2">Hızlı URL Örnekleri:</h5>
+                      <div className="space-y-1">
+                        <button
+                          type="button"
+                          onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop'})}
+                          className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
+                        >
+                          🏗️ Tesisat işi örneği
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop'})}
+                          className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
+                        >
+                          🚿 Banyo tesisatı örneği
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop'})}
+                          className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
+                        >
+                          👷🏼 Isıtma sistemi örneği
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Açıklama - En Altta */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Açıklama *</label>
+                  <div className="border border-gray-300 rounded-lg">
                     <CKEditorComponent
                       value={itemForm.description}
                       onChange={(data: string) => setItemForm({...itemForm, description: data})}
                       placeholder="Resim açıklaması..."
                       height="200px"
-                      label="Açıklama"
+                      label=""
                     />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Ana Resim URL *</label>
-                    <input
-                      type="url"
-                      value={itemForm.imageUrl}
-                      onChange={(e) => setItemForm({...itemForm, imageUrl: e.target.value})}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                      placeholder="https://example.com/resim.jpg"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Küçük Resim URL</label>
-                    <input
-                      type="url"
-                      value={itemForm.thumbnailUrl}
-                      onChange={(e) => setItemForm({...itemForm, thumbnailUrl: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                      placeholder="https://example.com/resim-kucuk.jpg (opsiyonel)"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Etiketler (virgülle ayırın)</label>
-                    <input
-                      type="text"
-                      value={itemForm.tags}
-                      onChange={(e) => setItemForm({...itemForm, tags: e.target.value})}
-                      placeholder="su, tesisat, kurulum, modern"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    />
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                    
-                    <div className="flex items-center mt-6">
-                      <input
-                        type="checkbox"
-                        id="isActive"
-                        checked={itemForm.isActive}
-                        onChange={(e) => setItemForm({...itemForm, isActive: e.target.checked})}
-                        className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="isActive" className="ml-2 text-sm text-gray-700">Aktif</label>
-                    </div>
-                    
-                    <div className="flex items-center mt-6">
-                      <input
-                        type="checkbox"
-                        id="isFeatured"
-                        checked={itemForm.isFeatured}
-                        onChange={(e) => setItemForm({...itemForm, isFeatured: e.target.checked})}
-                        className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="isFeatured" className="ml-2 text-sm text-gray-700">Öne Çıkan</label>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sağ taraf - Resim önizleme */}
-                <div className="space-y-4">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Resim Önizleme</h4>
-                  
-                  {/* Ana resim önizleme */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-500 mb-2">Ana Resim</label>
-                    <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
-                      {itemForm.imageUrl ? (
-                        <Image
-                          src={itemForm.imageUrl}
-                          alt="Önizleme"
-                          width={400}
-                          height={300}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            (target.nextElementSibling as HTMLElement)!.style.display = 'flex';
-                          }}
-                        />
-                      ) : null}
-                      <div 
-                        className={`w-full h-full flex items-center justify-center ${itemForm.imageUrl ? 'hidden' : 'flex'}`}
-                        style={{ display: itemForm.imageUrl ? 'none' : 'flex' } as React.CSSProperties}
-                      >
-                        <div className="text-center">
-                          <span className="text-4xl text-gray-400 mb-2 block">🖼️</span>
-                          <p className="text-sm text-gray-500">Resim URL&apos;si girin</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Küçük resim önizleme */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-500 mb-2">Küçük Resim</label>
-                    <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
-                      {itemForm.thumbnailUrl ? (
-                        <Image
-                          src={itemForm.thumbnailUrl}
-                          alt="Küçük önizleme"
-                          width={200}
-                          height={200}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            (target.nextElementSibling as HTMLElement)!.style.display = 'flex';
-                          }}
-                        />
-                      ) : null}
-                      <div 
-                        className={`w-full h-full flex items-center justify-center ${itemForm.thumbnailUrl ? 'hidden' : 'flex'}`}
-                        style={{ display: itemForm.thumbnailUrl ? 'none' : 'flex' } as React.CSSProperties}
-                      >
-                        <div className="text-center">
-                          <span className="text-3xl text-gray-400 mb-1 block">🖼️</span>
-                          <p className="text-xs text-gray-500">Opsiyonel</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Hızlı URL örnekleri */}
-                  <div className="bg-gray-50 rounded-lg p-3">
-                    <h5 className="text-xs font-medium text-gray-700 mb-2">Hızlı URL Örnekleri:</h5>
-                    <div className="space-y-1">
-                      <button
-                        type="button"
-                        onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop'})}
-                        className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
-                      >
-                        🏗️ Tesisat işi örneği
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop'})}
-                        className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
-                      >
-                        🚿 Banyo tesisatı örneği
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setItemForm({...itemForm, imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop'})}
-                        className="block text-xs text-blue-600 hover:text-blue-800 text-left w-full"
-                      >
-                        👷🏼 Isıtma sistemi örneği
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
               
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowItemModal(false);
-                    setEditingItem(null);
-                    setItemForm({ title: '', description: '', categoryId: '', imageUrl: '', thumbnailUrl: '', tags: '', isActive: true, isFeatured: false });
-                  }}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  İptal
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
-                >
-                  {editingItem ? 'Güncelle' : 'Ekle'}
-                </button>
+              {/* Fixed Bottom Buttons */}
+              <div className="flex-shrink-0 border-t border-gray-200 p-6">
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowItemModal(false);
+                      setEditingItem(null);
+                      setItemForm({ title: '', description: '', categoryId: '', imageUrl: '', thumbnailUrl: '', tags: '', isActive: true, isFeatured: false });
+                    }}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    İptal
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                  >
+                    {editingItem ? 'Güncelle' : 'Ekle'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>
