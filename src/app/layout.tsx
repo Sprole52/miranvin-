@@ -9,8 +9,45 @@ import ReduxProvider from "@/components/ReduxProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Seka Altyapı - Profesyonel Tesisat Hizmetleri",
-  description: "İstanbul'da 20 yıllık deneyimle profesyonel  kanalizasyon açma , kanalizasyon görüntüleme ., banyo mutfak gideri açma işlemleri  ve acil servis.",
+  title: "Miranvinc - Profesyonel Sepetli Vinc Hizmetleri",
+  description: "İstanbul'da profesyonel sepetli vinc, yük asansörü ve platform kiralama hizmetleri. Güvenli, hızlı ve kaliteli çözümler için Miranvinc'i tercih edin.",
+  keywords: "sepetli vinc, yük asansörü, platform kiralama, istanbul vinc, güvenli vinc hizmeti, profesyonel vinc",
+  authors: [{ name: "Miranvinc" }],
+  creator: "Miranvinc",
+  publisher: "Miranvinc",
+  robots: "index, follow",
+  icons: {
+    icon: [
+      { url: '/logo.png', type: 'image/png', sizes: '32x32' },
+      { url: '/logo.png', type: 'image/png', sizes: '16x16' },
+      { url: '/logo.png', type: 'image/png', sizes: '48x48' }
+    ],
+    shortcut: '/logo.png',
+    apple: [
+      { url: '/logo.png', type: 'image/png', sizes: '180x180' }
+    ]
+  },
+  openGraph: {
+    title: "Miranvinc - Profesyonel Sepetli Vinc Hizmetleri",
+    description: "İstanbul'da profesyonel sepetli vinc, yük asansörü ve platform kiralama hizmetleri. Güvenli, hızlı ve kaliteli çözümler.",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Miranvinc",
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Miranvinc Logo'
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Miranvinc - Profesyonel Sepetli Vinc Hizmetleri",
+    description: "İstanbul'da profesyonel sepetli vinc ve yük asansörü hizmetleri",
+    images: ['/logo.png']
+  },
 };
 
 export default function RootLayout({
