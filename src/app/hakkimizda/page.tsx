@@ -8,7 +8,7 @@ const AboutPage = () => {
       <section className="relative py-32 text-white">
         <div className="absolute inset-0">
           <Image
-            src="/img/sayfa1.jpg"
+            src="/img/vinc2.jpeg"
             alt="Sepetli Vinc Hakkımızda Arka Plan"
             fill
             priority
@@ -76,7 +76,7 @@ const AboutPage = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-yellow-500/5 rounded-3xl transform rotate-1"></div>
               <Image
-                src="/img/sayfa2.jpg"
+                src="/img/vinc1.jpg"
                 alt="Sepetli Vinc Ekibimiz"
                 width={800}
                 height={600}

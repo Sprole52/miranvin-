@@ -14,15 +14,15 @@ const Hero = () => {
       alt: "Adalar Sepetli Vinc Hizmetleri"
     },
     {
-      src: "/img/gider.jpg",
+      src: "/img/vinc1.jpg",
       alt: "Sepetli Vinc Platform Aracı"
     },
     {
-      src: "/img/slider.jpg",
+      src: "/img/vinc2.jpeg",
       alt: "Vinc Hizmetleri"
     },
     {
-      src: "/img/kontrol.jpg",
+      src: "/img/vinc3.jpeg",
       alt: "Vinc Kontrol ve Bakım"
     }
   ];

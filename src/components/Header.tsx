@@ -49,7 +49,7 @@ const Header = () => {
             <div className="relative">
               <Image 
                 src="/logo.png"
-                alt="Seka Altyapı Logo"
+                alt="Miran Vinc Logo"
                 width={200}
                 height={60}
                 className="h-8 w-auto sm:h-10 md:h-12 lg:h-14 group-hover:scale-105 transition-transform duration-300"
@@ -135,7 +135,7 @@ const Header = () => {
                   <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
                     <Image 
                       src="/logo.png"
-                      alt="Seka Altyapı Logo"
+                      alt="Miran Vinc Logo"
                       width={120}
                       height={36}
                       className="h-8 w-auto"

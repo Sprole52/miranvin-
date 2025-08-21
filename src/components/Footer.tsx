@@ -23,7 +23,7 @@ const Footer = () => {
             <div className="flex justify-center mb-4">
               <Image 
                 src="/logo.png"
-                alt="Seka Altyapı Logo"
+                alt="Miran Vinc Logo"
                 width={160}
                 height={50}
                 className="h-10 w-auto filter brightness-0 invert"
@@ -100,7 +100,7 @@ const Footer = () => {
                   📞 +90 532 789 91 82
                 </li>
                 <li className="text-gray-300 text-sm">
-                  ✉️ info@sekaaltyapi.com
+                  ✉️ info@miranvinc.com
                 </li>
                 <li className="text-gray-300 text-sm">
                   🕒 7/24 Hizmet
@@ -167,7 +167,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
               <p className="text-gray-400 text-sm">
-                © 2025 <span className="text-amber-400 font-medium">Seka Altyapı</span>. 
+                © 2025 <span className="text-amber-400 font-medium">Miran Vinc</span>. 
                 Tüm hakları saklıdır.
               </p>
             </div>

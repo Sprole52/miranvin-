@@ -122,7 +122,7 @@ const WhyChooseUs = () => {
               {/* Main Image */}
               <div className="relative z-10">
                 <Image 
-                  src="/img/sayfa1.jpg"
+                  src="/img/vinc2.jpeg"
                   alt="Profesyonel Sepetli Vinc Ekibi"
                   width={600}
                   height={500}

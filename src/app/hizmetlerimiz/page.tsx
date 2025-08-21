@@ -13,7 +13,7 @@ const ServicesPage = () => {
         "Cam Temizliği",
         "Bakım ve Onarım"
       ],
-      image: "/img/sayfa1.jpg"
+      image: "/img/vinc2.jpeg"
     },
     {
       icon: "🏭",
@@ -25,7 +25,7 @@ const ServicesPage = () => {
         "Endüstriyel Ekipman",
         "Tesis Bakımı"
       ],
-      image: "/img/sayfa2.jpg"
+      image: "/img/vinc2.jpeg"
     },
     {
       icon: "🚧",
@@ -37,7 +37,7 @@ const ServicesPage = () => {
         "İnşaat Yardımı",
         "Proje Desteği"
       ],
-      image: "/img/slider.jpg"
+      image: "/img/vinc2.jpeg"
     },
     {
       icon: "🔧",
@@ -49,7 +49,7 @@ const ServicesPage = () => {
         "Acil Onarım",
         "Gece Hizmeti"
       ],
-      image: "/img/acil.jpg"
+      image: "/img/vinc2.jpeg"
     },
     {
       icon: "🎨",
@@ -61,7 +61,7 @@ const ServicesPage = () => {
         "Dekoratif Uygulamalar",
         "Renk Değişimi"
       ],
-      image: "/img/tesisat.jpg"
+        image: "/img/vinc2.jpeg"
     },
     {
       icon: "🔍",
@@ -73,7 +73,7 @@ const ServicesPage = () => {
         "Arıza Tespiti",
         "Güvenlik Kontrolü"
       ],
-      image: "/img/kontrol.jpg"
+      image: "/img/vinc2.jpeg"
     }
   ];
 
@@ -83,7 +83,7 @@ const ServicesPage = () => {
       <section className="relative py-32 text-white">
         <div className="absolute inset-0">
           <Image
-            src="/img/sayfa2.jpg"
+            src="/img/vinc3.jpeg"
             alt="Sepetli Vinc Hizmetlerimiz Arka Plan"
             fill
             priority

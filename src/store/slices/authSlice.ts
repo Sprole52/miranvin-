@@ -22,7 +22,7 @@ interface AuthState {
 
 // Statik admin bilgileri
 const STATIC_ADMIN = {
-  email: 'admin@sekaaltyapi.com',
+  email: 'admin@miranvinc.com',
   password: 'admin123',
   uid: 'static-admin-uid',
   displayName: 'Statik Admin'

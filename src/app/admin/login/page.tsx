@@ -86,7 +86,7 @@ const AdminLogin = () => {
                 </svg>
                 <div className="text-sm text-blue-800">
                   <p className="font-medium">Statik Admin Bilgileri:</p>
-                  <p>E-posta: admin@sekaaltyapi.com</p>
+                  <p>E-posta: admin@miranvinc.com</p>
                   <p>Şifre: admin123</p>
                 </div>
               </div>

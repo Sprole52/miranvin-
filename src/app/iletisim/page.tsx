@@ -326,7 +326,7 @@ const ContactPage = () => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Seka Altyapı Konum"
+                  title="Miran Vinc Konum"
                 ></iframe>
               </div>
               
