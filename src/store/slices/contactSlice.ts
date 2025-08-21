@@ -54,6 +54,7 @@ interface ContactInfo {
 interface ContactState {
   messages: ContactMessage[];
   contactInfo: ContactInfo | null;
+  callCounter: number;
   isLoading: boolean;
   error: string | null;
   isSending: boolean;
@@ -73,6 +74,7 @@ interface ContactState {
 const initialState: ContactState = {
   messages: [],
   contactInfo: null,
+  callCounter: 0,
   isLoading: false,
   error: null,
   isSending: false,
@@ -228,6 +230,57 @@ export const updateContactInfo = createAsyncThunk(
   }
 );
 
+export const incrementCallCounter = createAsyncThunk(
+  'contact/incrementCallCounter',
+  async (_, { rejectWithValue }) => {
+    try {
+      // Get current call counter from database
+      const counterSnapshot = await getDocs(collection(db, 'call_counter'));
+      let currentCount = 0;
+      let docRef;
+      
+      if (counterSnapshot.empty) {
+        // Create new counter document
+        const newDoc = await addDoc(collection(db, 'call_counter'), {
+          count: 1,
+          updatedAt: new Date().toISOString(),
+        });
+        docRef = newDoc;
+        currentCount = 1;
+      } else {
+        // Update existing counter
+        docRef = counterSnapshot.docs[0].ref;
+        currentCount = (counterSnapshot.docs[0].data().count || 0) + 1;
+        await updateDoc(docRef, {
+          count: currentCount,
+          updatedAt: new Date().toISOString(),
+        });
+      }
+      
+      return currentCount;
+    } catch (error) {
+      return rejectWithValue(error instanceof Error ? error.message : 'Unknown error');
+    }
+  }
+);
+
+export const fetchCallCounter = createAsyncThunk(
+  'contact/fetchCallCounter',
+  async (_, { rejectWithValue }) => {
+    try {
+      const counterSnapshot = await getDocs(collection(db, 'call_counter'));
+      if (counterSnapshot.empty) {
+        return 0;
+      }
+      
+      const doc = counterSnapshot.docs[0];
+      return doc.data().count || 0;
+    } catch (error) {
+      return rejectWithValue(error instanceof Error ? error.message : 'Unknown error');
+    }
+  }
+);
+
 const contactSlice = createSlice({
   name: 'contact',
   initialState,
@@ -319,6 +372,15 @@ const contactSlice = createSlice({
     builder
       .addCase(updateContactInfo.fulfilled, (state, action) => {
         state.contactInfo = action.payload as ContactInfo;
+      });
+
+    // Call counter
+    builder
+      .addCase(incrementCallCounter.fulfilled, (state, action) => {
+        state.callCounter = action.payload;
+      })
+      .addCase(fetchCallCounter.fulfilled, (state, action) => {
+        state.callCounter = action.payload;
       });
   },
 });

@@ -1,20 +1,26 @@
-import type { Metadata } from 'next'
+'use client'
+import { useEffect } from 'react';
+import { useAppSelector } from '@/store/hooks';
 import AdminAuth from '@/components/AdminAuth'
 import AdminLayoutContent from '@/components/AdminLayoutContent'
 
-export const metadata: Metadata = {
-  title: 'Admin Panel - Seka Altyapı',
-  description: 'Seka Altyapı yönetim paneli',
-}
+const AdminLayoutWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+  useEffect(() => {
+    // Eğer localStorage'dan kullanıcı yüklendiyse ve admin sayfasındaysa, 
+    // login sayfasına yönlendirme yapma
+    if (isAuthenticated && user) {
+      // Kullanıcı zaten giriş yapmış, admin panelinde kalabilir
+      return;
+    }
+  }, [isAuthenticated, user]);
+
   return (
     <AdminAuth>
       <AdminLayoutContent>{children}</AdminLayoutContent>
     </AdminAuth>
-  )
-}
+  );
+};
+
+export default AdminLayoutWrapper;

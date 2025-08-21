@@ -22,6 +22,7 @@ interface DashboardStats {
   totalCategories: number;
   totalNews: number;
   totalMessages: number;
+  callCounter: number;
   activeNews: number;
   featuredNews: number;
   activeCategories: number;
@@ -76,6 +77,7 @@ const AdminDashboard = () => {
     totalCategories: 0,
     totalNews: 0,
     totalMessages: 0,
+    callCounter: 0,
     activeNews: 0,
     featuredNews: 0,
     activeCategories: 0,
@@ -91,16 +93,34 @@ const AdminDashboard = () => {
     fetchDashboardData();
   }, []);
 
+  // Call counter'ı Redux'tan al
+  useEffect(() => {
+    const fetchCallCounter = async () => {
+      try {
+        const counterSnapshot = await getDocs(collection(db, 'call_counter'));
+        if (!counterSnapshot.empty) {
+          const currentCount = counterSnapshot.docs[0].data().count || 0;
+          setStats(prev => ({ ...prev, callCounter: currentCount }));
+        }
+      } catch (error) {
+        console.error('Call counter fetch error:', error);
+      }
+    };
+
+    fetchCallCounter();
+  }, []);
+
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
       
       // Fetch all collections
-      const [galleryItemsSnapshot, categoriesSnapshot, newsSnapshot, messagesSnapshot] = await Promise.all([
+      const [galleryItemsSnapshot, categoriesSnapshot, newsSnapshot, messagesSnapshot, callCounterSnapshot] = await Promise.all([
         getDocs(collection(db, 'gallery_items')),
         getDocs(collection(db, 'gallery_categories')),
         getDocs(collection(db, 'haberler')),
-        getDocs(collection(db, 'contact_messages'))
+        getDocs(collection(db, 'contact_messages')),
+        getDocs(collection(db, 'call_counter'))
       ]);
 
       // Process gallery items
@@ -114,6 +134,9 @@ const AdminDashboard = () => {
       
       // Process messages
       const messages = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as ContactMessage[];
+      
+      // Process call counter
+      const callCounter = callCounterSnapshot.empty ? 0 : callCounterSnapshot.docs[0].data().count || 0;
 
       // Calculate stats
       const newStats: DashboardStats = {
@@ -121,6 +144,7 @@ const AdminDashboard = () => {
         totalCategories: categories.length,
         totalNews: news.length,
         totalMessages: messages.length,
+        callCounter: callCounter,
         activeNews: news.filter(item => item.isActive).length,
         featuredNews: news.filter(item => item.featured).length,
         activeCategories: categories.filter(item => item.isActive).length,
@@ -343,7 +367,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-sm border">
           <div className="flex items-center">
             <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
@@ -392,6 +416,19 @@ const AdminDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Mesajlar</p>
               <p className="text-2xl font-bold text-gray-900">{stats.totalMessages}</p>
               <p className="text-xs text-gray-500">Toplam iletişim</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border">
+          <div className="flex items-center">
+            <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+              <FiClock className="w-6 h-6 text-red-600" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Telefon Aramaları</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.callCounter}</p>
+              <p className="text-xs text-gray-500">Toplam arama</p>
             </div>
           </div>
         </div>

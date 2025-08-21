@@ -10,8 +10,7 @@ export const useAuth = () => {
     // Component mount'ta veritabanında admin var mı kontrol et
     dispatch(checkDatabaseAdmins());
     
-    // Eğer kullanıcı yoksa ve statik admin değilse auth state'i kontrol et
-    // Statik admin için Firebase Auth kontrolü yapma
+    // Eğer localStorage'dan kullanıcı yüklenmemişse auth state'i kontrol et
     if (!user) {
       dispatch(checkAuthState());
     }

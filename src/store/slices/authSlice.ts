@@ -28,12 +28,67 @@ const STATIC_ADMIN = {
   displayName: 'Statik Admin'
 };
 
+// LocalStorage key for auth persistence
+const AUTH_STORAGE_KEY = 'miranvin_auth_state';
+
+// Helper functions for localStorage
+const saveAuthToStorage = (user: User | null) => {
+  // Check if we're in browser environment
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
+  try {
+    if (user) {
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({
+        user,
+        timestamp: new Date().toISOString()
+      }));
+    } else {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  } catch (error) {
+    console.error('Error saving auth to localStorage:', error);
+  }
+};
+
+const loadAuthFromStorage = (): User | null => {
+  // Check if we're in browser environment
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  
+  try {
+    const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (stored) {
+      const data = JSON.parse(stored);
+      // Check if stored data is not older than 7 days
+      const storedDate = new Date(data.timestamp);
+      const now = new Date();
+      const daysDiff = (now.getTime() - storedDate.getTime()) / (1000 * 3600 * 24);
+      
+      if (daysDiff <= 7) {
+        return data.user;
+      } else {
+        // Clear expired data
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+      }
+    }
+  } catch (error) {
+    console.error('Error loading auth from localStorage:', error);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  }
+  return null;
+};
+
 const initialState: AuthState = {
-  user: null,
+  user: loadAuthFromStorage(), // Load from localStorage on init
   isLoading: false,
   error: null,
   successMessage: null,
-  isAuthenticated: false,
+  isAuthenticated: !!loadAuthFromStorage(), // Set based on stored user
   hasDatabaseAdmins: false,
 };
 
@@ -208,8 +263,15 @@ export const checkAuthState = createAsyncThunk(
   'auth/checkAuthState',
   async (_, { dispatch, getState }) => {
     return new Promise<User | null>((resolve) => {
-      // Eğer zaten statik admin olarak giriş yapılmışsa, Firebase Auth kontrolü yapma
       const state = getState() as { auth: AuthState };
+      
+      // Eğer localStorage'dan kullanıcı yüklendiyse ve hala geçerliyse, direkt döndür
+      if (state.auth.user && state.auth.isAuthenticated) {
+        resolve(state.auth.user);
+        return;
+      }
+
+      // Eğer zaten statik admin olarak giriş yapılmışsa, Firebase Auth kontrolü yapma
       if (state.auth.user?.isStaticAdmin) {
         resolve(state.auth.user);
         return;
@@ -255,6 +317,7 @@ const authSlice = createSlice({
       state.isAuthenticated = !!action.payload;
       state.isLoading = false;
       state.error = null;
+      saveAuthToStorage(action.payload); // Save to localStorage
     },
     clearError: (state) => {
       state.error = null;
@@ -287,6 +350,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isAuthenticated = true;
         state.error = null;
+        saveAuthToStorage(action.payload); // Save to localStorage
       })
       .addCase(loginWithStaticAdmin.rejected, (state, action) => {
         state.isLoading = false;
@@ -306,6 +370,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isAuthenticated = true;
         state.error = null;
+        saveAuthToStorage(action.payload); // Save to localStorage
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -358,6 +423,7 @@ const authSlice = createSlice({
         state.user = null;
         state.isAuthenticated = false;
         state.error = null;
+        saveAuthToStorage(null); // Save to localStorage
       })
       .addCase(logoutUser.rejected, (state) => {
         state.isLoading = false;
