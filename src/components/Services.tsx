@@ -85,7 +85,7 @@ const Services = () => {
                 {/* Learn More Link */}
                 <div className="mt-8">
                   <Link 
-                    href={`/hizmetlerimiz/${service.slug}`} 
+                    href={`/hizmetlerimiz`} 
                     className="inline-flex items-center text-gray-800 hover:text-yellow-600 font-semibold text-sm transition-all duration-300 group-hover:scale-105"
                   >
                     Detayları Gör

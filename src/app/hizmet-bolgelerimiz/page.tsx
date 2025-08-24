@@ -137,7 +137,7 @@ const ServiceAreasPage = () => {
             <span className="text-amber-400">Hizmet Bölgelerimiz</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-            İstanbul&apos;un tüm bölgelerinde profesyonel tesisat ve altyapı hizmetleri sunuyoruz
+            İstanbul&apos;un tüm bölgelerinde profesyonel vinc ve taşıma hizmetleri sunuyoruz
           </p>
         </div>
       </section>

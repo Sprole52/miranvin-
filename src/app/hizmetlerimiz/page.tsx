@@ -95,8 +95,20 @@ const ServicesPage = () => {
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-500/10 rounded-2xl mb-8">
-            <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            {/* Vinc (Crane) SVG Icon */}
+            <svg className="w-8 h-8 text-yellow-400" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+              {/* Crane base */}
+              <rect x="6" y="38" width="36" height="4" rx="1" fill="currentColor" className="text-yellow-400" />
+              {/* Crane tower */}
+              <rect x="22" y="14" width="4" height="24" rx="1" fill="currentColor" className="text-yellow-400" />
+              {/* Crane arm */}
+              <rect x="24" y="16" width="16" height="2" rx="1" transform="rotate(-20 24 16)" fill="currentColor" className="text-yellow-400" />
+              {/* Hook line */}
+              <rect x="38" y="18" width="2" height="10" rx="1" fill="currentColor" className="text-yellow-400" />
+              {/* Hook */}
+              <path d="M39 28c0 2-2 2-2 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              {/* Cabin */}
+              <rect x="18" y="28" width="8" height="6" rx="1" fill="#fff" stroke="currentColor" strokeWidth="1" />
             </svg>
           </div>
           <h1 className="text-5xl font-light text-white mb-6 leading-tight tracking-tight">
@@ -120,6 +132,12 @@ const ServicesPage = () => {
             {services.map((service, index) => (
               <div 
                 key={index}
+                id={service.title.toLowerCase().replace(/\s+/g, '-').replace(/[çğıöşü]/g, (match) => {
+                  const replacements: { [key: string]: string } = {
+                    'ç': 'c', 'ğ': 'g', 'ı': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u'
+                  };
+                  return replacements[match] || match;
+                })}
                 className="group bg-white border border-gray-200 rounded-3xl overflow-hidden hover:border-yellow-300 hover:shadow-xl transition-all duration-300"
               >
                 {/* Service Image */}

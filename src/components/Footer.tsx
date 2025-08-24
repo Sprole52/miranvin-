@@ -72,17 +72,37 @@ const Footer = () => {
                 Hizmetler
               </h3>
               <ul className="space-y-3">
-                <li className="text-gray-300 text-sm">
-                  🏗️ Sepetli Vinc
+                <li>
+                  <Link 
+                    href="/hizmetlerimiz#yuksek-bina-bakimi" 
+                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
+                  >
+                    🏗️ Sepetli Vinc
+                  </Link>
                 </li>
-                <li className="text-gray-300 text-sm">
-                  🚧 İnşaat Hizmetleri
+                <li>
+                  <Link 
+                    href="/hizmetlerimiz#insaat-projeleri" 
+                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
+                  >
+                    🚧 İnşaat Hizmetleri
+                  </Link>
                 </li>
-                <li className="text-gray-300 text-sm">
-                  🔧 Bakım & Onarım
+                <li>
+                  <Link 
+                    href="/hizmetlerimiz#kontrol-ve-bakim" 
+                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
+                  >
+                    🔧 Bakım & Onarım
+                  </Link>
                 </li>
-                <li className="text-gray-300 text-sm">
-                  📦 Yük Taşıma
+                <li>
+                  <Link 
+                    href="/hizmetlerimiz#acil-servis" 
+                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
+                  >
+                    📦 Yük Taşıma
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -137,7 +157,7 @@ const Footer = () => {
                 </a>
                 
                 <a 
-                  href="https://instagram.com/tesisatpro" 
+                  href="https://instagram.com/miranvinc" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-pink-600 rounded-lg flex items-center justify-center text-white transition-colors duration-300"
