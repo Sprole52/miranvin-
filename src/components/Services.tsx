@@ -5,11 +5,11 @@ import Link from 'next/link';
 const Services = () => {
   const services = [
     {
-      icon: "🏗️",
-      title: "İNŞAAT VİNC",
-      description: "Bina inşaatlarında yük taşıma, malzeme nakli ve montaj işleri için profesyonel sepetli vinc hizmetleri sunuyoruz.",
+      icon: "🎥",
+      title: "Prodüksiyon",
+      description: "Film, dizi ve reklam çekimlerinde ekipman taşıma ve sahne kurulumunda profesyonel vinç çözümleri sunuyoruz.",
       accentColor: "bg-yellow-500",
-      slug: "insaat-vinc"
+      slug: "Prodüksiyon"
     },
     {
       icon: "🔧",
@@ -85,7 +85,7 @@ const Services = () => {
                 {/* Learn More Link */}
                 <div className="mt-8">
                   <Link 
-                    href={`/hizmetlerimiz`} 
+                    href={`/hizmetlerimiz/${service.slug}`} 
                     className="inline-flex items-center text-gray-800 hover:text-yellow-600 font-semibold text-sm transition-all duration-300 group-hover:scale-105"
                   >
                     Detayları Gör

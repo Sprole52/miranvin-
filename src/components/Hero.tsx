@@ -10,19 +10,19 @@ const Hero = () => {
   
   const slides = [
     {
-      src: "/img/adalar-sepetli-vinc.jpg",
+      src: "/img/vinc1.jpeg",
       alt: "Adalar Sepetli Vinc Hizmetleri"
     },
     {
-      src: "/img/vinc1.jpg",
+      src: "/img/vinc2.jpeg",
       alt: "Sepetli Vinc Platform Aracı"
     },
     {
-      src: "/img/vinc2.jpeg",
+      src: "/img/vinc3.jpeg",
       alt: "Vinc Hizmetleri"
     },
     {
-      src: "/img/vinc3.jpeg",
+      src: "/img/vinc4.jpeg",
       alt: "Vinc Kontrol ve Bakım"
     }
   ];
@@ -114,10 +114,9 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-             
-              
-              <a 
-                href="tel:+905555555555" 
+
+            <a 
+                href="tel:+905326991552" 
                 onClick={handleCallClick}
                 className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-medium py-3 px-6 rounded-lg text-base transition-all duration-300 flex items-center justify-center gap-3 hover:bg-white/20 hover:border-white/50"
               >
@@ -126,9 +125,8 @@ const Hero = () => {
                 </svg>
                 Ara
               </a>
-
               <a 
-                href="https://wa.me/905555555555" 
+                href="https://wa.me/905326991552/905326991552" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-medium py-3 px-6 rounded-lg text-base transition-all duration-300 flex items-center justify-center gap-3 hover:bg-white/20 hover:border-white/50"
@@ -138,6 +136,7 @@ const Hero = () => {
                 </svg>
                 WhatsApp
               </a>
+
             </div>
           </div>
         </div>

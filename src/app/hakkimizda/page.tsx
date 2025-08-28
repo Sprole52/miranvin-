@@ -62,11 +62,11 @@ const AboutPage = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gray-50 p-4 rounded-2xl">
-                  <div className="text-2xl font-bold text-yellow-600">300+</div>
+                  <div className="text-2xl font-bold text-yellow-600">500+</div>
                   <p className="text-gray-600 text-sm">Mutlu Müşteri</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-2xl">
-                  <div className="text-2xl font-bold text-yellow-600">800+</div>
+                  <div className="text-2xl font-bold text-yellow-600">300+</div>
                   <p className="text-gray-600 text-sm">Tamamlanan Proje</p>
                 </div>
               </div>
@@ -76,7 +76,7 @@ const AboutPage = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-yellow-500/5 rounded-3xl transform rotate-1"></div>
               <Image
-                src="/img/vinc1.jpg"
+                src="/img/12.jpeg"
                 alt="Sepetli Vinc Ekibimiz"
                 width={800}
                 height={600}
@@ -268,7 +268,7 @@ const AboutPage = () => {
               İletişime Geçin
             </a>
             <a
-              href="tel:+905327899182"
+              href="tel:+905326991552"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-yellow-600 transition-colors duration-200"
             >
               Hemen Ara

@@ -19,22 +19,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile menu scroll lock
-  useEffect(() => {
-    if (isMenuOpen) {
-      // Prevent body scroll
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Restore scroll
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      // Cleanup on unmount
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
-
   // Close menu on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -53,7 +37,7 @@ const Header = () => {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
         ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/50' 
         : 'bg-white lg:bg-transparent'
@@ -136,56 +120,27 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <>
-            {/* Full screen overlay for all content - covers entire viewport */}
+          <div className="lg:hidden">
+            {/* Backdrop */}
             <div 
-              className="fixed inset-0 bg-black bg-opacity-40 z-[9997] lg:hidden"
-              style={{ 
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100vw',
-                height: '100vh',
-                minHeight: '100vh'
-              }}
-            />
-            
-            {/* Backdrop - Clickable overlay */}
-            <div 
-              className="fixed inset-0 bg-transparent z-[9998] lg:hidden"
-              style={{ 
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100vw',
-                height: '100vh',
-                minHeight: '100vh'
-              }}
+              className="fixed inset-0 bg-black bg-opacity-50 z-40"
               onClick={() => setIsMenuOpen(false)}
             />
             
-            {/* Menu Content - Full height right side */}
-            <div 
-              className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-[9999] lg:hidden transform transition-transform duration-300 ease-out"
-              style={{ 
-                position: 'fixed', 
-                top: 0, 
-                right: 0, 
-                height: '100vh', 
-                width: '320px', 
-                zIndex: 9999,
-                minHeight: '100vh'
-              }}
-            >
+            {/* Menu Content */}
+            <div className="fixed inset-y-0 right-0 w-80 bg-white shadow-xl z-50 transform transition-transform duration-300">
               <div className="flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                   <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
-                   
+                    <Image 
+                      src="/logo.png"
+                      alt="Miran Vinc Logo"
+                      width={120}
+                      height={36}
+                      className="h-8 w-auto"
+                      priority
+                    />
                   </Link>
                   <button
                     onClick={() => setIsMenuOpen(false)}
@@ -254,7 +209,7 @@ const Header = () => {
                 </nav>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </header>

@@ -26,10 +26,10 @@ const Contact = () => {
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">Telefon</h3>
             <a 
-              href="tel:+905327899182"
+              href="tel:+905326991552"
               className="text-xl font-bold text-yellow-600 hover:text-yellow-700 transition-colors"
             >
-              +90 532 789 91 82
+              +90 532 699 15 52
             </a>
             <p className="text-gray-500 text-sm mt-1">7/24 hizmetinizdeyiz</p>
           </div>

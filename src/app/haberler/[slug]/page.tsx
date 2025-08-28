@@ -91,7 +91,7 @@ const HaberDetay = () => {
 
   const shareOnWhatsApp = () => {
     const text = `${haber?.title || ''} ${window.location.href}`;
-    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/905326991552/?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
 
@@ -138,7 +138,7 @@ const HaberDetay = () => {
       {/* Hero Section */}
       <div className="relative h-64 md:h-80 lg:h-96">
         <Image 
-          src="/img/vinc2.jpeg" 
+          src="/img/slider.jpg" 
           alt="Haberler Hero"
           fill
           className="object-cover"

@@ -31,7 +31,7 @@ const FAQ = () => {
     },
     {
       question: "Yüksek binalarda çalışma yapabiliyor musunuz?",
-      answer: "Evet, yüksek binalarda bakım, onarım, cephe boyama gibi işlerde sepetli vinc kullanarak güvenli çalışma yapabiliyoruz. Maksimum yükseklik sınırımız 75 metre."
+      answer: "Evet, yüksek binalarda bakım, onarım, cephe boyama gibi işlerde sepetli vinc kullanarak güvenli çalışma yapabiliyoruz. Maksimum yükseklik sınırımız 70 metre."
     },
     {
       question: "Endüstriyel tesislerde hizmet veriyor musunuz?",

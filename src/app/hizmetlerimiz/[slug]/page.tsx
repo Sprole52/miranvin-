@@ -277,7 +277,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 📞 Hemen Teklif Al
               </a>
               <a
-                href="tel:+905327899182"
+                href="tel:+905326991552"
                 className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 text-center"
               >
                 📱 Acil Ara: 0532 555 01 23

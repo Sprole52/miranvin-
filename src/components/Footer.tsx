@@ -63,6 +63,11 @@ const Footer = () => {
                     Haberler
                   </Link>
                 </li>
+                <li>
+                  <Link href="/hizmet-bolgelerimiz" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    Hizmet bölgelerimiz
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -73,35 +78,33 @@ const Footer = () => {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/hizmetlerimiz#yuksek-bina-bakimi" 
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
-                  >
-                    🏗️ Sepetli Vinc
+                  <Link href="/hizmetlerimiz#yuksek-bina-bakimi" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🏗️ Yüksek Bina Bakımı
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/hizmetlerimiz#insaat-projeleri" 
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
-                  >
-                    🚧 İnşaat Hizmetleri
+                  <Link href="/hizmetlerimiz#endustriyel-tesisler" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🏭 Endüstriyel Tesisler
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/hizmetlerimiz#kontrol-ve-bakim" 
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
-                  >
-                    🔧 Bakım & Onarım
+                  <Link href="/hizmetlerimiz#insaat-projeleri" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🚧 İnşaat Projeleri
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/hizmetlerimiz#acil-servis" 
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm flex items-center gap-2 justify-center lg:justify-start"
-                  >
-                    📦 Yük Taşıma
+                  <Link href="/hizmetlerimiz#acil-servis" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🔧 Acil Servis
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hizmetlerimiz#cephe-ve-boya" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🎨 Cephe ve Boya
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hizmetlerimiz#kontrol-ve-bakim" className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm">
+                    🔍 Kontrol ve Bakım
                   </Link>
                 </li>
               </ul>
@@ -117,7 +120,7 @@ const Footer = () => {
                   📍 İstanbul, Türkiye
                 </li>
                 <li className="text-gray-300 text-sm">
-                  📞 +90 532 789 91 82
+                  📞 +90 532 699 15 52
                 </li>
                 <li className="text-gray-300 text-sm">
                   ✉️ info@miranvinc.com
@@ -135,7 +138,7 @@ const Footer = () => {
               </h3>
               <div className="flex gap-3 justify-center lg:justify-start">
                 <a 
-                  href="https://wa.me/" 
+                  href="https://wa.me/905326991552/" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-lg flex items-center justify-center text-white transition-colors duration-300"
@@ -147,7 +150,7 @@ const Footer = () => {
                 </a>
                 
                 <a 
-                  href="tel:+905327899182" 
+                  href="tel:+905326991552" 
                   className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center text-white transition-colors duration-300"
                   title="Telefon"
                 >
@@ -157,7 +160,7 @@ const Footer = () => {
                 </a>
                 
                 <a 
-                  href="https://instagram.com/miranvinc" 
+                  href="https://www.instagram.com/vinc.miran" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-pink-600 rounded-lg flex items-center justify-center text-white transition-colors duration-300"

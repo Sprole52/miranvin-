@@ -100,7 +100,7 @@ const ContactPage = () => {
             İletişime <span className="text-amber-400">Geçin</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-            Vinc sorunlarınız için uzman ekibimizle iletişime geçin. 
+            Tesisat sorunlarınız için uzman ekibimizle iletişime geçin. 
             7/24 hizmetinizdeyiz!
           </p>
         </div>
@@ -114,7 +114,7 @@ const ContactPage = () => {
               Mesaj Gönderin
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Vinc sorunlarınızı çözmek için sadece bir adım uzaktayız.
+              Tesisat sorunlarınızı çözmek için sadece bir adım uzaktayız.
             </p>
           </div>
 
@@ -210,12 +210,12 @@ const ContactPage = () => {
                       className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                     >
                       <option value="">Hizmet seçiniz</option>
-                      <option value="insaat-vinc">İnşaat Vinc Hizmeti</option>
+                      <option value="su-tesisati">Kanalizasyon</option>
+                      <option value="isitma-sistemi">Isıtma Sistemi</option>
+                      <option value="banyo-mutfak">Banyo & Mutfak</option>
+                      <option value="acil-servis">Acil Servis</option>
+                      <option value="yeni-tesisat">Yeni Tesisat</option>
                       <option value="bakim-onarim">Bakım & Onarım</option>
-                      <option value="cephe-isleri">Cephe İşleri</option>
-                      <option value="acil-servis">Acil Servis (7/24)</option>
-                      <option value="tasima-nakliye">Yük Taşıma & Nakliye</option>
-                      <option value="kiralik-vinc">Kiralık Sepetli Vinc</option>
                       <option value="diger">Diğer</option>
                     </select>
                   </div>
@@ -306,7 +306,7 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Contact Information */}
+            {/* Map */}
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                 <span className="text-amber-600">
@@ -317,23 +317,19 @@ const ContactPage = () => {
                 </span>
                 Konumumuz
               </h3>
-              
-              {/* Map */}
               <div className="bg-white rounded-2xl overflow-hidden shadow-lg h-96 border border-gray-100">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.2755833690997!2d29.0277!3d40.9903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU5JzI1LjEiTiAyOcKwMDEnNDAuMCJF!5e0!3m2!1str!2str!4v1234567890&q=Bulgurlu%2C%20S%C3%B6%C4%9F%C3%BCtl%C3%BC%20%C3%87ay%C4%B1r%20Cd.%20No%3A25%2C%2034696%20%C3%9Csk%C3%BCdar%2F%C4%B0stanbul"
+                  src="https://www.google.com/maps?q=Bulgurlu%2C%20S%C3%B6%C4%9F%C3%BCtl%C3%BC%20%C3%87ay%C4%B1r%20Cd.%20No%3A25%2C%2034696%20%C3%9Csk%C3%BCdar%2F%C4%B0stanbul&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Miran Vinc Konum - Bulgurlu, Söğütlü Çayır Cd. No:25, 34696 Üsküdar/İstanbul"
+                  title="Miran Vinc Konum"
                 ></iframe>
               </div>
               
-              
-
               {/* Additional Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center gap-3 p-5 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
@@ -344,7 +340,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Hızlı Servis</p>
-                    <p className="text-gray-600 text-sm">Her zaman yanınızda</p>
+                    <p className="text-gray-600 text-sm"> Her zaman yanınızda</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-5 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
@@ -354,8 +350,8 @@ const ContactPage = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Çalışma Saatları</p>
-                    <p className="text-gray-600 text-sm">7/24 Hizmet</p>
+                    <p className="font-medium text-gray-900">Çalışma Saatleri</p>
+                    <p className="text-gray-600 text-sm"> 7/24 Hizmet</p>
                   </div>
                 </div>
               </div>
@@ -383,8 +379,8 @@ const ContactPage = () => {
                 <span className="text-2xl">📞</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">7/24 Acil Servis</h3>
-              <p className="text-amber-600 font-bold text-lg">0532 699 15 52</p>
-              <p className="text-gray-500 text-sm">7/24 Hizmet</p>
+              <p className="text-amber-600 font-bold text-lg">+90 532 699 15 52</p>
+              <p className="text-gray-500 text-sm">7/24 hizmetinizdeyiz</p>
             </div>
             
             {/* Email */}
@@ -394,7 +390,7 @@ const ContactPage = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">E-posta</h3>
               <p className="text-amber-600 font-semibold">info@miranvinc.com</p>
-              <p className="text-gray-500 text-sm">destek@miranvinc.com</p>
+              <p className="text-gray-500 text-sm">Hızlı yanıt garantisi</p>
             </div>
             
             {/* Address */}
@@ -405,8 +401,7 @@ const ContactPage = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Adres</h3>
               <p className="text-gray-600 text-sm">
                 Bulgurlu, Söğütlü Çayır Cd. No:25<br />
-                34696 Üsküdar/İstanbul<br />
-                Türkiye
+                34696 Üsküdar/İstanbul
               </p>
             </div>
           </div>

@@ -137,7 +137,7 @@ const ServiceAreasPage = () => {
             <span className="text-amber-400">Hizmet Bölgelerimiz</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-            İstanbul&apos;un tüm bölgelerinde profesyonel vinc ve taşıma hizmetleri sunuyoruz
+            İstanbul&apos;un tüm bölgelerinde profesyonel tesisat ve altyapı hizmetleri sunuyoruz
           </p>
         </div>
       </section>
@@ -307,13 +307,13 @@ const ServiceAreasPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+905327899182"
+              href="tel:+905326991552"
               className="bg-white text-amber-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center gap-2"
             >
               📞 Hemen Ara
             </a>
             <a
-              href="https://wa.me/"
+              href="https://wa.me/905326991552/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition-colors duration-300 flex items-center justify-center gap-2"
