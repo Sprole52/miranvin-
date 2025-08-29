@@ -138,7 +138,7 @@ const HaberDetay = () => {
       {/* Hero Section */}
       <div className="relative h-64 md:h-80 lg:h-96">
         <Image 
-          src="/img/slider.jpg" 
+          src="/img/vinc4.jpeg" 
           alt="Haberler Hero"
           fill
           className="object-cover"

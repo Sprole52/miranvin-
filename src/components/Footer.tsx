@@ -22,11 +22,11 @@ const Footer = () => {
           <div className="text-center mb-12">
             <div className="flex justify-center mb-4">
               <Image 
-                src="/logo.png"
+                src="/logo-dark.png"
                 alt="Miran Vinc Logo"
                 width={160}
                 height={50}
-                className="h-10 w-auto filter brightness-0 invert"
+                className="h-10 w-auto "
               />
             </div>
             <p className="text-gray-300 text-base max-w-2xl mx-auto">

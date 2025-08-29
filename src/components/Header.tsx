@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { createPortal } from 'react-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith('/admin') || false;
 
@@ -15,11 +17,22 @@ const Header = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    // Set initial screen size
+    handleResize();
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
-  // Close menu on escape key
+  // Close menu on escape key and handle body scroll
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isMenuOpen) {
@@ -27,8 +40,31 @@ const Header = () => {
       }
     };
 
+    // Simple body scroll lock without jumping to top
+    if (isMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY.replace('-', '')));
+      }
+    }
+
     document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
   }, [isMenuOpen]);
 
   // Admin sayfasında Header'ı gösterme
@@ -48,7 +84,7 @@ const Header = () => {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative">
               <Image 
-                src="/logo.png"
+                src={isScrolled && isDesktop ?   "/logo.png" : "/logo-dark.png" }
                 alt="Miran Vinc Logo"
                 width={200}
                 height={60}
@@ -118,98 +154,88 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            {/* Backdrop */}
-            <div 
-              className="fixed inset-0 bg-black bg-opacity-50 z-40"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            
-            {/* Menu Content */}
-            <div className="fixed inset-y-0 right-0 w-80 bg-white shadow-xl z-50 transform transition-transform duration-300">
-              <div className="flex flex-col h-full">
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                  <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
-                    <Image 
-                      src="/logo.png"
-                      alt="Miran Vinc Logo"
-                      width={120}
-                      height={36}
-                      className="h-8 w-auto"
-                      priority
-                    />
-                  </Link>
-                  <button
-                    onClick={() => setIsMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                    aria-label="Close mobile menu"
-                  >
-                    <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-                
-                {/* Navigation */}
-                <nav className="flex-1 overflow-y-auto py-6 px-6">
-                  <div className="space-y-3">
-                    <Link 
-                      href="/" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Ana Sayfa
-                    </Link>
-                    <Link 
-                      href="/hizmetlerimiz" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Hizmetlerimiz
-                    </Link>
-                    <Link 
-                      href="/hizmet-bolgelerimiz" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Hizmet Bölgelerimiz
-                    </Link>
-                    <Link 
-                      href="/galeri" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Galeri
-                    </Link>
-                    <Link 
-                      href="/haberler" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Haberler
-                    </Link>
-                    <Link 
-                      href="/hakkimizda" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Hakkımızda
-                    </Link>
-                    <Link 
-                      href="/iletisim" 
-                      className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      İletişim
-                    </Link>
-                  </div>
-                </nav>
-              </div>
+        {/* Mobile Menu Portal */}
+        {isMenuOpen && typeof window !== 'undefined' && createPortal(
+          <div className="lg:hidden fixed inset-0 z-[9999] bg-white">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <Image 
+                  src="/logo.png"
+                  alt="Miran Vinc Logo"
+                  width={120}
+                  height={36}
+                  className="h-8 w-auto"
+                  priority
+                />
+              </Link>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                aria-label="Close mobile menu"
+              >
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-          </div>
+            
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto py-6 px-6">
+              <div className="space-y-3">
+                <Link 
+                  href="/" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Ana Sayfa
+                </Link>
+                <Link 
+                  href="/hizmetlerimiz" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Hizmetlerimiz
+                </Link>
+                <Link 
+                  href="/hizmet-bolgelerimiz" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Hizmet Bölgelerimiz
+                </Link>
+                <Link 
+                  href="/galeri" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Galeri
+                </Link>
+                <Link 
+                  href="/haberler" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Haberler
+                </Link>
+                <Link 
+                  href="/hakkimizda" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Hakkımızda
+                </Link>
+                <Link 
+                  href="/iletisim" 
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  İletişim
+                </Link>
+              </div>
+            </nav>
+          </div>,
+          document.body
         )}
       </div>
     </header>
