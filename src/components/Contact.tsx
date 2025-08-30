@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Contact = () => {
   return (
     <section id="iletisim" className="py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">
@@ -43,10 +43,10 @@ const Contact = () => {
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">E-posta</h3>
             <a 
-              href="mailto:info@sepetlivinc.com"
+              href="mailto:info@miranvinc.com"
               className="text-lg text-yellow-600 hover:text-yellow-700 transition-colors break-all"
             >
-              info@sepetlivinc.com
+              info@miranvinc.com
             </a>
             <p className="text-gray-500 text-sm mt-1">Hızlı yanıt garantisi</p>
           </div>
@@ -60,10 +60,15 @@ const Contact = () => {
               </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">Adres</h3>
-            <p className="text-lg text-gray-900">Kadıköy, İstanbul</p>
+            <p className="text-lg text-gray-900">
+              Bulgurlu, Söğütlü Çayır Cd. No:25<br />
+              34696 Üsküdar/İstanbul
+            </p>
             <p className="text-gray-500 text-sm mt-1">Merkezi konum</p>
           </div>
         </div>
+
+       
 
         {/* CTA */}
         <div className="text-center">

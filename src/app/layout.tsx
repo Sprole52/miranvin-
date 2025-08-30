@@ -18,14 +18,20 @@ export const metadata: Metadata = {
   robots: "index, follow",
   icons: {
     icon: [
-      { url: '/logo.png', type: 'image/png', sizes: '32x32' },
-      { url: '/logo.png', type: 'image/png', sizes: '16x16' },
-      { url: '/logo.png', type: 'image/png', sizes: '48x48' }
+      { url: '/icon.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon.png', sizes: '128x128', type: 'image/png' },
+      { url: '/icon.png', sizes: '256x256', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
+    shortcut: '/icon.png',
     apple: [
-      { url: '/logo.png', type: 'image/png', sizes: '180x180' }
-    ]
+      { url: '/icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'mask-icon', url: '/icon.png' },
+    ],
   },
   openGraph: {
     title: "Miranvinc - Profesyonel Sepetli Vinc Hizmetleri",
